@@ -125,6 +125,14 @@ public class ServiceApp {
         return liste;
     } 
     
+    public List<Intervention> recupToutesIntervToday(){
+        List<Intervention> liste;
+        JpaUtil.creerEntityManager();
+        liste = intervDAO.getAllIntervToday();
+        JpaUtil.fermerEntityManager(); 
+        return liste;
+    } 
+    
     public Intervention fermerInterv (Employe emp, String comm){
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();

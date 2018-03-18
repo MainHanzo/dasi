@@ -10,6 +10,7 @@ package DAO;
  * @author cguittat
  */
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import modele.Client;
@@ -70,6 +71,15 @@ public class InterventionDAO {
     public List<Intervention> getAllIntervEmploye (Employe emp){
         Query query = JpaUtil.obtenirEntityManager().createQuery("Select i from Intervention i where i.realisePar = :em ORDER BY i.id DESC");
         query.setParameter("em", emp);
+        List<Intervention> liste;
+        liste = (List<Intervention>) query.getResultList();
+        return liste;
+    } 
+    
+    public List<Intervention> getAllIntervToday (){
+        Query query = JpaUtil.obtenirEntityManager().createQuery("Select i from Intervention i where i.fin = :date ORDER BY i.id DESC");
+        Date d = new Date();
+        query.setParameter("date", d);
         List<Intervention> liste;
         liste = (List<Intervention>) query.getResultList();
         return liste;
