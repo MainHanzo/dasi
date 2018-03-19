@@ -51,6 +51,9 @@ public abstract class Intervention implements Serializable {
     public Date getTimeInterv(){
         return this.debut;
     }
+    public Date getTimeFin(){
+        return this.fin;
+    }
     
     public void setEmploye (Employe e){
         this.realisePar = e; 

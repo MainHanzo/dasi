@@ -10,6 +10,8 @@ package DAO;
  * @author cguittat
  */
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
@@ -76,12 +78,18 @@ public class InterventionDAO {
         return liste;
     } 
     
+    
     public List<Intervention> getAllIntervToday (){
-        Query query = JpaUtil.obtenirEntityManager().createQuery("Select i from Intervention i where i.fin = :date ORDER BY i.id DESC");
+        Query query = JpaUtil.obtenirEntityManager().createQuery("Select i from Intervention i where i.estFini=1 Order BY i.fin DESC");
         Date d = new Date();
-        query.setParameter("date", d);
         List<Intervention> liste;
         liste = (List<Intervention>) query.getResultList();
+        for (int i=0; i<liste.size();i++){
+            boolean verif = liste.get(i).getTimeFin().getDate() == d.getDate() && liste.get(i).getTimeFin().getMonth() == d.getMonth() && liste.get(i).getTimeFin().getYear() == d.getYear();
+            if(!verif){
+                liste.remove(liste.get(i));
+            }
+        }
         return liste;
     } 
     

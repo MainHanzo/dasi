@@ -46,23 +46,28 @@ public class main {
         SimpleDateFormat dateInterv = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date debut = null;
         try {
-            debut = dateInterv.parse("2018/01/12 11:00:00");
+            debut = dateInterv.parse("2018/03/19 18:15:00");
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);// ou date du jour
         }
         
-        //Client c = new Client ('F', "béa", "guittat", d,"INSA-LYON", "06", "Guit@gmail");
+        //Client c = new Client ('M', "Clement", "guittat", d,"INSA-LYON", "06", "Clement@gmail");
         //System.out.println(serv.creationClient(c));
-        Client c = serv.clientLogin("Guit@gmail", 1966);
-        Intervention ia = new InterventionAnimal("tout se passe bien", debut, c, "panda");
-        System.out.println(serv.creationIntervention(ia));
+        //Client c = serv.clientLogin("Clement@gmail", 2651);
+        //Intervention ia = new InterventionAnimal("tout se passe bien", debut, c, "panda");
+        //System.out.println(serv.creationIntervention(ia));
+        List<Intervention>kl = serv.recupToutesIntervToday();
+        for (int i=0; i< kl.size();i++){
+            System.out.println(kl.get(i));
+        }
         /*List<Intervention>k = serv.recupToutesIntervClient(c);
         for (int i=0; i< k.size();i++){
             System.out.println(k.get(i));
         }*/
         //System.out.println(serv.clientLogin("Guittat@gmail", 1001));
-        /*Employe e = serv.employeLogin("Varane@proactif.fr", 1957);
-        List<Intervention>k = serv.recupToutesIntervEmploye(e);
+        //Employe e = serv.employeLogin("Martial@proactif.fr", 1954);
+        //System.out.println(serv.recupIntervEnCours(e));
+        /*List<Intervention>k = serv.recupToutesIntervEmploye(e);
         for (int i=0; i< k.size();i++){
             System.out.println(k.get(i));
         }*/
