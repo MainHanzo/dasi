@@ -10,8 +10,10 @@ package modele;
  *
  * @author cguittat
  */
+import com.google.maps.model.LatLng;
 import java.util.Date;
 import javax.persistence.*;
+import util.GeoTest;
 
 @Entity
 public class Client {
@@ -38,7 +40,7 @@ public class Client {
     @Column(unique=true, nullable=false) 
     private String mail;
     
-    private String GPS;
+    private LatLng GPS;
     
     public Client(char civ, String name, String pre,Date d,String ad, String num, String email)
     {
@@ -54,13 +56,25 @@ public class Client {
     public Client() {
     }
     
+    public String getName(){
+        return this.prenom;
+    }
+    
     public int getId(){
         return this.id;
+    }
+    
+    public void setCoord(){
+        this.GPS = GeoTest.getLatLng(this.Adresse);
+    }
+    
+    public LatLng getGPS(){
+        return this.GPS;
     }
     
     public String toString(){
         return "Le client s'appelle " + this.prenom + " "
                 + " " + this.nom + ", son id est "+ this.id +" né le "+this.DateNaissance +", habite au: "+ this.Adresse+ " son numéro est le " +this.numTel+ 
-                " et son mail est : "+ this.mail;
+                " et son mail est : "+ this.mail+ " ses coordonnées GPS :"+ this.GPS;
     }
 }

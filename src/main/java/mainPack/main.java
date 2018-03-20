@@ -24,6 +24,7 @@ import modele.InterventionIncident;
 import modele.InterventionLivraison;
 import DAO.JpaUtil;
 import Service.ServiceApp;
+import Service.ServiceMail;
 import java.util.List;
 
 
@@ -33,6 +34,7 @@ public class main {
     public static void main(String []args) {
         JpaUtil.init();
         ServiceApp serv = new ServiceApp();
+        ServiceMail servMail = new ServiceMail();
         //serv.creationEmployes(declareEmployes());
         
         SimpleDateFormat saf = new SimpleDateFormat("dd/mm/yyyy");
@@ -51,21 +53,23 @@ public class main {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);// ou date du jour
         }
         
-        //Client c = new Client ('M', "Clement", "guittat", d,"INSA-LYON", "06", "Clement@gmail");
+        //Client c = new Client ('H', "Yang", "guittat", d,"61 Avenue Roger Salengro, Villeurbanne", "06", "Yang@gmail");
         //System.out.println(serv.creationClient(c));
-        //Client c = serv.clientLogin("Clement@gmail", 2651);
-        //Intervention ia = new InterventionAnimal("tout se passe bien", debut, c, "panda");
-        //System.out.println(serv.creationIntervention(ia));
-        List<Intervention>kl = serv.recupToutesIntervToday();
+        Client c = serv.clientLogin("Yang@gmail", 16);
+        //System.out.println(c);
+        Intervention ia = new InterventionIncident("tout se passe bien", c, "fuite d'eau");
+        System.out.println(serv.creationIntervention(ia));
+        /*List<Intervention>kl = serv.recupToutesIntervToday();
         for (int i=0; i< kl.size();i++){
             System.out.println(kl.get(i));
-        }
+        }*/
         /*List<Intervention>k = serv.recupToutesIntervClient(c);
         for (int i=0; i< k.size();i++){
             System.out.println(k.get(i));
         }*/
         //System.out.println(serv.clientLogin("Guittat@gmail", 1001));
-        //Employe e = serv.employeLogin("Martial@proactif.fr", 1954);
+        //Employe e = serv.employeLogin("Tolisso@proactif.fr", 10);
+        //System.out.println(e);
         //System.out.println(serv.recupIntervEnCours(e));
         /*List<Intervention>k = serv.recupToutesIntervEmploye(e);
         for (int i=0; i< k.size();i++){
@@ -95,35 +99,35 @@ public class main {
         int[][] hor14 = {{10,14},{18,22}};
         int[][] hor15 = {{9,12},{17,19},{20,23}};
         
-        Employe e1= new Employe ('M',"Mbappe", "Kylian",hor1, "Paris", "Mbappe@proactif.fr");
+        Employe e1= new Employe ('M',"Mbappe", "Kylian",hor1, "8 Rue Arago, Villeurbanne", "Mbappe@proactif.fr");
         tabEmp[0]=e1;
-        Employe e2= new Employe ('M',"Griezmann", "Antoine",hor2, "Madrid", "Griezmann@proactif.fr");
+        Employe e2= new Employe ('M',"Griezmann", "Antoine",hor2, "5 Rue Léon Fabre, Villeurbanne", "Griezmann@proactif.fr");
         tabEmp[1]=e2;
-        Employe e3= new Employe ('M',"Pogba", "Paul",hor3, "Manchester", "Pogba@proactif.fr");
+        Employe e3= new Employe ('M',"Pogba", "Paul",hor3, "12 Rue de la Prevoyance, Villeurbanne", "Pogba@proactif.fr");
         tabEmp[2]=e3;
-        Employe e4= new Employe ('M',"Martial", "Anthony",hor4, "Manchester", "Martial@proactif.fr");
+        Employe e4= new Employe ('M',"Martial", "Anthony",hor4, "4 Rue Phelypeaux, Villeurbanne", "Martial@proactif.fr");
         tabEmp[3]=e4;
-        Employe e5= new Employe ('M',"Coman", "Kingsley",hor5, "Munich", "Coman@proactif.fr");
+        Employe e5= new Employe ('M',"Coman", "Kingsley",hor5, "8 Rue Wilhelmine, Villeurbanne", "Coman@proactif.fr");
         tabEmp[4]=e5;
-        Employe e6= new Employe ('M',"Umtiti", "Samuel",hor6, "Barcelone", "Umtiti@proactif.fr");
+        Employe e6= new Employe ('M',"Umtiti", "Samuel",hor6, "6 Rue Camille Koechlin, Villeurbanne", "Umtiti@proactif.fr");
         tabEmp[5]=e6;
-        Employe e7= new Employe ('M',"Varane", "Raphael",hor7, "Madrid", "Varane@proactif.fr");
+        Employe e7= new Employe ('M',"Varane", "Raphael",hor7, "9 Impasse Guillet, Villeurbanne", "Varane@proactif.fr");
         tabEmp[6]=e7;
-        Employe e8= new Employe ('M',"Matuidi", "Blaise",hor8, "Turin", "Matuidi@proactif.fr");
+        Employe e8= new Employe ('M',"Matuidi", "Blaise",hor8, "20 Rue Decomberousse, Villeurbanne", "Matuidi@proactif.fr");
         tabEmp[7]=e8;
-        Employe e9= new Employe ('M',"Rabiot", "Adrien",hor9, "Paris", "Rabiot@proactif.fr");
+        Employe e9= new Employe ('M',"Rabiot", "Adrien",hor9, "1 Rue d'Alsace, Villeurbanne", "Rabiot@proactif.fr");
         tabEmp[8]=e9;
-        Employe e10= new Employe ('M',"Tolisso", "Corentin",hor10, "Munich", "Tolisso@proactif.fr");
+        Employe e10= new Employe ('M',"Tolisso", "Corentin",hor10, "4 Rue de la Jeunesse, Villeurbanne", "Tolisso@proactif.fr");
         tabEmp[9]=e10;
-        Employe e11= new Employe ('M',"Kante", "Ngolo",hor11, "Londres", "Kante@proactif.fr");
+        Employe e11= new Employe ('M',"Kante", "Ngolo",hor11, "7 Rue de la Cloche, Villeurbanne", "Kante@proactif.fr");
         tabEmp[10]=e11;
-        Employe e12= new Employe ('M',"Koscielny", "Laurent",hor12, "Londres", "Koscielny@proactif.fr");
+        Employe e12= new Employe ('M',"Koscielny", "Laurent",hor12, "4 Rue Marcel Doret, Villeurbanne", "Koscielny@proactif.fr");
         tabEmp[11]=e12;
-        Employe e13= new Employe ('M',"Giroud", "Olivier",hor13, "Londres", "Giroud@proactif.fr");
+        Employe e13= new Employe ('M',"Giroud", "Olivier",hor13, "16 Rue Jules Kumer, Villeurbanne", "Giroud@proactif.fr");
         tabEmp[12]=e13;
-        Employe e14= new Employe ('M',"Sidibe", "Djibril",hor14, "Monaco", "Sidibe@proactif.fr");
+        Employe e14= new Employe ('M',"Sidibe", "Djibril",hor14, "4 Rue du Luxembourg, Villeurbanne", "Sidibe@proactif.fr");
         tabEmp[13]=e14;
-        Employe e15= new Employe ('M',"Lemar", "Thomas",hor15, "Monaco", "Lemar@proactif.fr");
+        Employe e15= new Employe ('M',"Lemar", "Thomas",hor15, "1 Rue Denis Papin, Villeurbanne", "Lemar@proactif.fr");
         tabEmp[14]=e15;
         
         return tabEmp;

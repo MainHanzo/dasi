@@ -21,8 +21,8 @@ public class InterventionIncident extends Intervention {
         
     }
     
-    public InterventionIncident(String desc, Date debu, Client c, String type){
-        super(desc, debu, c);
+    public InterventionIncident(String desc, Client c, String type){
+        super(desc, c);
         this.typeIncident = type;
     }
     

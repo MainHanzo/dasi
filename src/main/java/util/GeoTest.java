@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 */
 public class GeoTest {
 
-    final static String MA_CLÉ_GOOGLE_API = "XXXXXXXX-Moodle-Clé";
+    final static String MA_CLÉ_GOOGLE_API = "AIzaSyAhf3JleYpal9S-xouJYH8lf7Dvz5Y2Nko";
 
     final static GeoApiContext MON_CONTEXTE_GEOAPI = new GeoApiContext.Builder().apiKey(MA_CLÉ_GOOGLE_API).build();
 
@@ -112,7 +112,7 @@ public class GeoTest {
 
     public static void main(String[] args) {
 
-        if (MA_CLÉ_GOOGLE_API.equals("XXXXXXXX-Moodle-Clé")) {
+        if (MA_CLÉ_GOOGLE_API.equals("AIzaSyAhf3JleYpal9S-xouJYH8lf7Dvz5Y2Nko")) {
             for (int i=0; i<100; i++) {
                 System.err.println("[ERREUR] VOUS AVEZ OUBLIÉ DE CHANGER LA CLÉ DE L'API !!!!!");
             }

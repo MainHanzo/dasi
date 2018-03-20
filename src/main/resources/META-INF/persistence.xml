@@ -9,7 +9,7 @@
     <class>modele.InterventionIncident</class>
     <class>modele.InterventionLivraison</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/proactif"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/ProactIF"/>
       <property name="javax.persistence.jdbc.user" value="cguittat"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="azerty"/>

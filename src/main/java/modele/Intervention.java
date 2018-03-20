@@ -42,9 +42,8 @@ public abstract class Intervention implements Serializable {
         
     }
     
-    public Intervention(String desc,Date debu, Client c) {
+    public Intervention(String desc, Client c) {
         this.description = desc;
-        this.debut = debu;
         this.demandePar = c;
     }
     
@@ -54,6 +53,9 @@ public abstract class Intervention implements Serializable {
     public Date getTimeFin(){
         return this.fin;
     }
+    public Client getClient(){
+        return this.demandePar;
+    }
     
     public void setEmploye (Employe e){
         this.realisePar = e; 
@@ -61,6 +63,10 @@ public abstract class Intervention implements Serializable {
     
     public void setFini (boolean b){
         this.estFini = b;
+    }
+    
+    public void setDateDebut(){
+        this.fin = new Date();
     }
     
     public void setDateFin (){
@@ -72,6 +78,6 @@ public abstract class Intervention implements Serializable {
     }
     
     public String toString(){
-        return "L'intervention a pour descritption: " + this.description+ " ,a commencé le "+ this.debut + " juqu'à "+ this.fin + " est demandé par :"+ this.demandePar+". Elles est réalisé par : "+ this.realisePar +", fini ? : "+this.estFini +" dont le commentaire est : "+ this.commentaire;
+        return "demandée le " + this.debut + " pour " + this.demandePar.getName() +" (#" + this.demandePar.getId()+"), dont la description est :" + this.description;
     }
 }

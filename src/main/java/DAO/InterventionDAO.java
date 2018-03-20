@@ -13,11 +13,13 @@ package DAO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Query;
 import modele.Client;
 import modele.Employe;
 import modele.Intervention;
+import util.GeoTest;
 
 public class InterventionDAO {
     public InterventionDAO(){
@@ -27,16 +29,26 @@ public class InterventionDAO {
         boolean unDispo = false;
         Query query = JpaUtil.obtenirEntityManager().createQuery("select e from Employe e where e.dispo =1");
         List<Employe> res = (List<Employe>) query.getResultList();
-        for (int i =0; i<res.size();i++){
-            if (res.get(i).disponi(in.getTimeInterv().getHours())){
-                in.setEmploye(res.get(i));
-                res.get(i).setDispo(false);
-                unDispo = true;
-                JpaUtil.obtenirEntityManager().persist(in);
-                break;
+        double dureeProvisoire = -1;
+        Employe empProvisoire = null;
+        for (int i =1; i<res.size();i++){
+            if (res.get(i).disponi(in.getTimeInterv().getHours())){ 
+                double dureeCalculee = GeoTest.getTripDurationByBicycleInMinute(in.getClient().getGPS(), res.get(i).getGPS());
+                if (dureeProvisoire < 0 || dureeCalculee< dureeProvisoire){
+                    dureeProvisoire = dureeCalculee;
+                    empProvisoire = res.get(i);
+                    unDispo = true;
+                }
             }
         }
-        if (!unDispo){
+        
+        if (unDispo){
+            in.setEmploye(empProvisoire);
+            empProvisoire.setDispo(false);
+            in.setDateDebut();
+            JpaUtil.obtenirEntityManager().persist(in);
+        }
+        else {
             in = null;
         }
         return in;
@@ -78,16 +90,17 @@ public class InterventionDAO {
         return liste;
     } 
     
-    
     public List<Intervention> getAllIntervToday (){
         Query query = JpaUtil.obtenirEntityManager().createQuery("Select i from Intervention i where i.estFini=1 Order BY i.fin DESC");
         Date d = new Date();
         List<Intervention> liste;
         liste = (List<Intervention>) query.getResultList();
-        for (int i=0; i<liste.size();i++){
-            boolean verif = liste.get(i).getTimeFin().getDate() == d.getDate() && liste.get(i).getTimeFin().getMonth() == d.getMonth() && liste.get(i).getTimeFin().getYear() == d.getYear();
+        for (Iterator<Intervention> iter = liste.listIterator(); iter.hasNext();){
+            Intervention in = iter.next();
+            boolean verif = in.getTimeFin().getDate() == d.getDate() && in.getTimeFin().getMonth() == d.getMonth() && in.getTimeFin().getYear() == d.getYear();
+            System.out.println(verif);
             if(!verif){
-                liste.remove(liste.get(i));
+                iter.remove();
             }
         }
         return liste;

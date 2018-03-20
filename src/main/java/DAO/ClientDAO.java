@@ -18,6 +18,7 @@ public class ClientDAO {
         
     }
     public Client creerClient (Client c){
+        c.setCoord();
         JpaUtil.obtenirEntityManager().persist(c);
         return c;
     }

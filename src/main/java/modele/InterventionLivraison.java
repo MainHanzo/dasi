@@ -22,8 +22,8 @@ public class InterventionLivraison extends Intervention {
         
     }
     
-    public InterventionLivraison(String desc, Date debu, Client c, String obj, String entr){
-            super(desc, debu, c);
+    public InterventionLivraison(String desc, Client c, String obj, String entr){
+            super(desc, c);
             this.objet = obj;
             this.entreprise =  entr;
     }

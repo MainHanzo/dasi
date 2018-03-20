@@ -21,9 +21,13 @@ public class InterventionAnimal extends Intervention {
         
     }
     
-    public InterventionAnimal(String desc, Date debu,Client c, String type){
-        super(desc, debu, c);
+    public InterventionAnimal(String desc,Client c, String type){
+        super(desc, c);
         this.typeAnimal = type;
+    }
+    
+    public String getTypeAnimal(){
+        return this.typeAnimal;
     }
     
     @Override

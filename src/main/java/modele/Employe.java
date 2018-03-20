@@ -10,8 +10,10 @@ package modele;
  *
  * @author cguittat
  */
+import com.google.maps.model.LatLng;
 import java.util.Date;
 import javax.persistence.*;
+import util.GeoTest;
 
 
 @Entity
@@ -38,6 +40,8 @@ public class Employe {
     
     @Column(unique=true, nullable=false) 
     private String mail;
+    
+    private LatLng GPS;
 
     public Employe(char civ, String name, String pre, int[][] hor,String domi, String email)
     {
@@ -68,9 +72,17 @@ public class Employe {
         return b;
     }
     
+    public void setCoord(){
+        this.GPS = GeoTest.getLatLng(this.domicile);
+    }
+    
+    public LatLng getGPS(){
+        return this.GPS;
+    }
+    
     public String toString(){
         return "L'employé s'appelle " + this.prenom + " "
-            + this.nom + " id est:"+this.id+" habite au: "+ this.domicile+ " ses horaires sont: " +AfficheHoraire(this.horaire)+" il est "+this.dispo+" disponible";
+            + this.nom + " id est:"+this.id+" habite au: "+ this.domicile+ " ses horaires sont: " +AfficheHoraire(this.horaire)+" il est "+this.dispo+" disponible et ses coordonnées GPS sont :"+this.GPS;
     }
     public String AfficheHoraire(int[][] tab){
         String chaine = "";

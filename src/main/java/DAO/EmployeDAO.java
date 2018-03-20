@@ -20,6 +20,7 @@ public class EmployeDAO {
     
     public void creerEmployes(Employe[]etab){
         for (int i=0; i< etab.length; i++){
+            etab[i].setCoord();
             JpaUtil.obtenirEntityManager().persist(etab[i]);
         }
     }
