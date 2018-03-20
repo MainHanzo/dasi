@@ -35,4 +35,16 @@ public class ClientDAO {
         }
         return cl;
     }
+    
+    public int mdpClient (String username){
+        Query query = JpaUtil.obtenirEntityManager().createQuery("select c.id from Client c where c.mail = :usr");
+        query.setParameter("usr", username);
+        int mdp = 0;
+        try {
+            mdp = (int) query.getSingleResult();
+        } catch (Exception e) {
+            mdp = 0;
+        }
+        return mdp;
+    }
 }
