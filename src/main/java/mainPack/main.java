@@ -35,7 +35,6 @@ public class main {
         JpaUtil.init();
         ServiceApp serv = new ServiceApp();
         ServiceMail servMail = new ServiceMail();
-        //serv.creationEmployes(declareEmployes());
         
         SimpleDateFormat saf = new SimpleDateFormat("dd/mm/yyyy");
         Date d = null;
@@ -53,29 +52,88 @@ public class main {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);// ou date du jour
         }
         
-        //Client c = new Client ('H', "Yang", "guittat", d,"61 Avenue Roger Salengro, Villeurbanne", "06", "Yang@gmail");
-        //System.out.println(serv.creationClient(c));
-        Client c = serv.clientLogin("Yang@gmail", 16);
-        //System.out.println(c);
-        Intervention ia = new InterventionIncident("tout se passe bien", c, "fuite d'eau");
-        System.out.println(serv.creationIntervention(ia));
-        /*List<Intervention>kl = serv.recupToutesIntervToday();
-        for (int i=0; i< kl.size();i++){
-            System.out.println(kl.get(i));
+                                        //Création des employés dans la base de données 
+                                        
+        /*serv.creationEmployes(declareEmployes());
+        
+                                        // Inscription d'un client 
+        
+        Client c = new Client ('H', "guittat", "Yang", d,"61 Avenue Roger Salengro, Villeurbanne", "06", "Yang@gmail");
+        Client cTest = serv.creationClient(c);
+        if (cTest != null){
+            System.out.println(servMail.sendMailConfirInscrip(cTest));
+        }
+        else {
+            System.out.println(servMail.sendMailRefusIncrip(cTest));
+        }
+                                        // Connexion d'un client 
+        
+        Client cl = serv.clientLogin("Yang@gmail", 3001);
+        System.out.println(cl);
+        
+                                        // Mot de passé oublié par le client 
+                                        
+        System.out.println(servMail.sendMailMdpOublie("Yang@gmail"));
+        
+                                        // Connexion d'un employé 
+                                        
+        Employe e = serv.employeLogin("Tolisso@proactif.fr", 2910);
+        System.out.println(e);
+        */
+                                        // Création d'une intervention par un client 
+        /*
+        Client cl = serv.clientLogin("Yang@gmail", 3001);
+        Intervention ia = new InterventionIncident("tout se passe bien", cl, "fuite d'eau");
+        Intervention iaCree = serv.creationIntervention(ia);
+        if (iaCree != null){
+            System.out.println(servMail.notifPourEmploye(iaCree));
         }*/
-        /*List<Intervention>k = serv.recupToutesIntervClient(c);
-        for (int i=0; i< k.size();i++){
-            System.out.println(k.get(i));
+        
+                                        // Récupérer les 5 dernières interventions d'un client 
+        /*
+        Client cl = serv.clientLogin("Yang@gmail", 3001);
+        List<Intervention>dern = serv.recup5DerniereInterv(cl);
+        for (int i=0; i< dern.size();i++){
+            System.out.println(dern.get(i));
         }*/
-        //System.out.println(serv.clientLogin("Guittat@gmail", 1001));
-        //Employe e = serv.employeLogin("Tolisso@proactif.fr", 10);
-        //System.out.println(e);
-        //System.out.println(serv.recupIntervEnCours(e));
-        /*List<Intervention>k = serv.recupToutesIntervEmploye(e);
-        for (int i=0; i< k.size();i++){
-            System.out.println(k.get(i));
+        
+                                        // Récupérer toutes les interventions d'un client 
+        /*
+        Client cl = serv.clientLogin("Yang@gmail", 3001);
+        List<Intervention>toutes = serv.recupToutesIntervClient(cl);
+        for (int i=0; i< toutes.size();i++){
+            System.out.println(toutes.get(i));
         }*/
-        //System.out.println(serv.fermerInterv(e, "tout s'est bien passé"));
+        
+                                        // Récupérer intervention en cours d'un employé
+        /*
+        Employe e = serv.employeLogin("Matuidi@proactif.fr", 2908);
+        System.out.println(serv.recupIntervEnCours(e));
+        */
+                                        // Récupérer toutes les interventions d'un employé
+        /*                                
+        Employe e = serv.employeLogin("Matuidi@proactif.fr", 2908);                        
+        List<Intervention>toutEmp = serv.recupToutesIntervEmploye(e);
+        for (int i=0; i< toutEmp.size();i++){
+            System.out.println(toutEmp.get(i));
+        }*/
+        
+                                         // Fermer une intervention
+        /*                                 
+        Employe e = serv.employeLogin("Matuidi@proactif.fr", 2908);                                           
+        Intervention iFerme= serv.fermerInterv(e, "tout s'est bien passé");                       
+        System.out.println(iFerme);
+        System.out.println(servMail.notifPourClient(iFerme));*/
+        
+        
+        
+                                        // Récupérer intervention d'aujourd'hui 
+        /*
+        List<Intervention>intervToday = serv.recupToutesIntervToday();
+        for (int i=0; i< intervToday.size();i++){
+            System.out.println(intervToday.get(i));
+        }*/
+                             
         JpaUtil.destroy();
     }
     

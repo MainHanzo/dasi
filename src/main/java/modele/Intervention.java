@@ -24,10 +24,10 @@ public abstract class Intervention implements Serializable {
     
     protected String commentaire;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date debut;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date fin;
     
     @ManyToOne
@@ -66,7 +66,7 @@ public abstract class Intervention implements Serializable {
     }
     
     public void setDateDebut(){
-        this.fin = new Date();
+        this.debut = new Date();
     }
     
     public void setDateFin (){
@@ -78,6 +78,6 @@ public abstract class Intervention implements Serializable {
     }
     
     public String toString(){
-        return "demandée le " + this.debut + " pour " + this.demandePar.getName() +" (#" + this.demandePar.getId()+"), dont la description est :" + this.description;
+        return "demandée le " + this.debut + " pour " + this.demandePar.toString() +"dont la description est :" + this.description;
     }
 }

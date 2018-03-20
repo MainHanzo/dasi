@@ -74,7 +74,7 @@ public class Client {
     
     public String toString(){
         return "Le client s'appelle " + this.prenom + " "
-                + " " + this.nom + ", son id est "+ this.id +" né le "+this.DateNaissance +", habite au: "+ this.Adresse+ " son numéro est le " +this.numTel+ 
+                + " " + this.nom + ", son id est "+ this.id +", habite au: "+ this.Adresse+ " son numéro est le " +this.numTel+ 
                 " et son mail est : "+ this.mail+ " ses coordonnées GPS :"+ this.GPS;
     }
 }

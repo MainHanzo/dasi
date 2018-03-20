@@ -27,11 +27,12 @@ public class InterventionDAO {
     }
     public Intervention creerIntervention (Intervention in){
         boolean unDispo = false;
+        in.setDateDebut();
         Query query = JpaUtil.obtenirEntityManager().createQuery("select e from Employe e where e.dispo =1");
         List<Employe> res = (List<Employe>) query.getResultList();
         double dureeProvisoire = -1;
         Employe empProvisoire = null;
-        for (int i =1; i<res.size();i++){
+        for (int i =0; i<res.size();i++){
             if (res.get(i).disponi(in.getTimeInterv().getHours())){ 
                 double dureeCalculee = GeoTest.getTripDurationByBicycleInMinute(in.getClient().getGPS(), res.get(i).getGPS());
                 if (dureeProvisoire < 0 || dureeCalculee< dureeProvisoire){
@@ -45,7 +46,6 @@ public class InterventionDAO {
         if (unDispo){
             in.setEmploye(empProvisoire);
             empProvisoire.setDispo(false);
-            in.setDateDebut();
             JpaUtil.obtenirEntityManager().persist(in);
         }
         else {
@@ -98,7 +98,6 @@ public class InterventionDAO {
         for (Iterator<Intervention> iter = liste.listIterator(); iter.hasNext();){
             Intervention in = iter.next();
             boolean verif = in.getTimeFin().getDate() == d.getDate() && in.getTimeFin().getMonth() == d.getMonth() && in.getTimeFin().getYear() == d.getYear();
-            System.out.println(verif);
             if(!verif){
                 iter.remove();
             }
@@ -121,10 +120,5 @@ public class InterventionDAO {
             in = null;
         }
         return in;
-    }
-    
-    public Intervention getInterventionById(int InterventionId){
-        Intervention cl = JpaUtil.obtenirEntityManager().find(Intervention.class, InterventionId);
-        return cl;
     }
 }
